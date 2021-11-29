@@ -12,7 +12,7 @@ namespace ThreadWpf
         private Thread _thread_1;
         private Thread _thread_2;
         private List<long> numbers;
-        private bool _isRunning;
+        private volatile bool _isRunning;
         private int _counter;
         public MainWindow()
         {         
