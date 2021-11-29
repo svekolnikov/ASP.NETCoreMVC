@@ -37,9 +37,8 @@ namespace ThreadWpf
 
         private void WorkerThread_1()
         {
-            while (true)
+            while (_isRunning)
             {
-                if (_isRunning)
                 {
                     _ = Application.Current.Dispatcher.InvokeAsync(() =>
                     {
