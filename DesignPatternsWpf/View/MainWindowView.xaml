@@ -1,0 +1,30 @@
+﻿<Window x:Class="DesignPatternsWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:DesignPatternsWpf.ViewModel"
+        mc:Ignorable="d"
+        ResizeMode="NoResize"
+        Title="{Binding Title}" 
+        SizeToContent="WidthAndHeight">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <StackPanel Orientation="Horizontal" Margin="10">
+        <TextBox Width="100" 
+                 Margin="15 0 15 0" 
+                 Background="LightGray" 
+                 VerticalAlignment="Center"
+                 Padding="0 4"
+                 Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Width="50" 
+               Margin="15 0 15 0" 
+               Background="LightGray"
+               VerticalAlignment="Center"
+               Content="{Binding Counter, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Content="Click Me" 
+                Padding="15 0"
+                Command="{Binding ClickCommand}"/>
+    </StackPanel>
+</Window>
