@@ -1,24 +1,24 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using WeatherForecastWpf.Commands.Base;
+using WeatherForecastWpf.Data;
 using WeatherForecastWpf.Model;
 
 namespace WeatherForecastWpf.ViewModel
 {
-    internal class MainWindowViewModel : ViewModel
+    public class MainWindowViewModel : ViewModel
     {
+        private string _title;
+        private readonly Adapter _adapter;
+
         public MainWindowViewModel()
         {
-            WeatherForecasts = new ObservableCollection<WeatherForecastModel>
-            {
-                new() {DayNumber = "10"},
-                new() {DayNumber = "11"},
-                new() {DayNumber = "12"},
-            };
+            var weatherForecastData = new WeatherForecastData();
+            _adapter = new Adapter(weatherForecastData);
         }
 
-        private string _title;
         public string Title
         {
             get => _title;
@@ -28,23 +28,49 @@ namespace WeatherForecastWpf.ViewModel
                 OnPropertyChanged(nameof(Title));
             }
         }
+        
+        public ObservableCollection<ForecastBrieflyDayModel> WeatherForecasts { get; set; } = new ObservableCollection<ForecastBrieflyDayModel>();
 
-        public string Search { get; set; }
-        public ObservableCollection<WeatherForecastModel> WeatherForecasts { get; set; }
-
-        #region GetWeatherCommand
+        #region Get weather command
 
         private Command? _getWeatherCommand;
 
         public ICommand GetWeatherCommand =>
-            _getWeatherCommand ??= Command
-                .Invoke(OnGetWeatherExecuted);
+            _getWeatherCommand ??= Command.Invoke(OnGetWeatherExecuted);
 
-        private void OnGetWeatherExecuted(object? p)
+        private async Task OnGetWeatherExecuted(object? p)
         {
-            MessageBox.Show("Search...");
+            await Update();
         }
 
         #endregion
+
+        #region Window loaded command
+
+        private Command? _windowLoadedCommand;
+
+        public ICommand WindowLoadedCommand =>
+            _windowLoadedCommand ??= Command.Invoke(OnWindowLoadedExecuted);
+
+        private async Task OnWindowLoadedExecuted(object? p)
+        {
+            await Update();
+        }
+
+        #endregion
+
+        private async Task Update()
+        {
+            var model = await _adapter.GetRequest("https://yandex.ru/pogoda/");
+
+            Title = $"{model.CurrentTime} " +
+                    $"Моё местоположение: {model.Location}. " +
+                    $"Текущая температура {model.CurrentTemperature} " +
+                    $"Ощущается как {model.FeelsTemperature} " +
+                    $"Вчера в это время {model.YesterdayTemperature}";
+
+            WeatherForecasts.Clear();
+            model.ForecastBrieflyDay.ForEach(x => WeatherForecasts.Add(x));
+        }
     }
 }

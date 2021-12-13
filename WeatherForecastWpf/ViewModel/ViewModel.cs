@@ -4,7 +4,7 @@ using WeatherForecastWpf.Annotations;
 
 namespace WeatherForecastWpf.ViewModel
 {
-    internal class ViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

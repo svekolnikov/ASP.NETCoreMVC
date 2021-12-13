@@ -4,35 +4,76 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:vm="clr-namespace:WeatherForecastWpf.ViewModel"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpfWebBrowserUtility="clr-namespace:WeatherForecastWpf.WpfWebBrowserUtility"
+        xmlns:intr="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="400">
+        Title="{Binding Title, UpdateSourceTrigger=PropertyChanged}" SizeToContent="Height" MinWidth="220" MinHeight="270">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
-    <DockPanel Background="DarkGray">
-        <Grid DockPanel.Dock="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"
-                HorizontalContentAlignment="Left"
-                Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <Button Grid.Column="1"
-                HorizontalAlignment="Right"
-                Padding="5 0"
+
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding WindowLoadedCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
+
+    <DockPanel>
+        <Button DockPanel.Dock="Top"
+                Padding="15 5"
+                Margin="5"
                 Command="{Binding GetWeatherCommand}"
-                Content="Get weather"/>
-        </Grid>
+                Content="Узнать погоду"/>
         <ListView 
             DockPanel.Dock="Bottom"
+            Margin="5"
             ItemsSource="{Binding WeatherForecasts}">
-            
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <TextBlock Text="{Binding DayNumber}"/>
-                    </Grid>
+                    <Border BorderThickness="0.5" BorderBrush="LightGray" CornerRadius="5">
+                        <Grid>
+                            <StackPanel Width="100" Margin="5">
+                                <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Day}" Value="Weekday">
+                                                    <Setter Property="Foreground" Value="Black"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Day}" Value="Weekend">
+                                                    <Setter Property="Foreground" Value="Red"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Date}" FontSize="14" Foreground="#939cb0"/>
+
+                                <WebBrowser HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Width="30" Height="30"
+                                            wpfWebBrowserUtility:WebBrowserUtility.BindableSource="{Binding IconSrc}"/>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="днём " FontSize="14"/>
+                                    <TextBlock Text="{Binding DayTemperature}" FontSize="14"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="ночью " FontSize="12" Foreground="Gray"/>
+                                    <TextBlock Text="{Binding NightTemperature}" FontSize="12" Foreground="#939cb0"/>
+                                </StackPanel>
+
+                                <TextBlock Margin="0 10 0 0" Text="{Binding Condition}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
