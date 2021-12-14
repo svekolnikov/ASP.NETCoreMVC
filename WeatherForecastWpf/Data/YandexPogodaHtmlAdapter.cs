@@ -6,13 +6,13 @@ using WeatherForecastWpf.Model;
 
 namespace WeatherForecastWpf.Data
 {
-    public class Adapter : ITarget
+    public class YandexPogodaHtmlAdapter : ITarget
     {
         private readonly WeatherForecastData _weatherForecastData;
         private readonly HtmlParser _parser = new();
         private IHtmlDocument? _document;
 
-        public Adapter(WeatherForecastData weatherForecastData)
+        public YandexPogodaHtmlAdapter(WeatherForecastData weatherForecastData)
         {
             _weatherForecastData = weatherForecastData;
         }

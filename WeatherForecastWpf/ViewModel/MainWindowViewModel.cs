@@ -11,12 +11,12 @@ namespace WeatherForecastWpf.ViewModel
     public class MainWindowViewModel : ViewModel
     {
         private string _title;
-        private readonly Adapter _adapter;
+        private readonly YandexPogodaHtmlAdapter _adapter;
 
         public MainWindowViewModel()
         {
             var weatherForecastData = new WeatherForecastData();
-            _adapter = new Adapter(weatherForecastData);
+            _adapter = new YandexPogodaHtmlAdapter(weatherForecastData);
         }
 
         public string Title
