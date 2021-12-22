@@ -25,9 +25,11 @@ scannerContext.SetStrategy(imgStrategy);
 await scannerContext.ScanExecute("stm32.png", "scannedImage");
 
 var imgScanner = new ImageScanner();
-var imgGrayscaleStrategy = new GrayscaleScanOutputStrategy(new ImageScannerEmulator.Logger.ScannerConsoleLogger());
+var imgGrayscaleStrategy = new GrayscaleOutput(new ImageScannerEmulator.Logger.ScannerConsoleLogger());
 var imgScannerContext = new ImageScannerContext(imgScanner, imgGrayscaleStrategy);
-await imgScannerContext.ScanExecute("stm32.png", "gray_image");
+await imgScannerContext.ScanExecute("stm32.png", "gray_image_1");
+await imgScannerContext.ScanExecute("stm32.png", "gray_image_2");
+await imgScannerContext.ScanExecute("stm32.png", "gray_image_3");
 imgScannerContext.WatchRun("watch_here");
 //imgScannerContext.WatchStop();
 Console.ReadLine();

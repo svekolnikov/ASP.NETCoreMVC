@@ -6,21 +6,20 @@ using SixLabors.ImageSharp.Processing;
 
 namespace ImageScannerEmulator.Strategies
 {
-    public class GrayscaleScanOutputStrategy : IScanOutputStrategy
+    public class GrayscaleOutput : IScanOutputStrategy
     {
         protected readonly IScannerLogger _logger;
-        public GrayscaleScanOutputStrategy(IScannerLogger logger) => _logger = logger;
+        public GrayscaleOutput(IScannerLogger logger) => _logger = logger;
 
         public string Name { get; set; } = "Image strategy";
 
         public async Task ScanAndSave(IDevice device, string sourcePath, string destName)
         {
             if (string.IsNullOrWhiteSpace(destName)) throw new ArgumentNullException(nameof(destName));
-
+            
             //Scan
             _logger.WriteInfo($"Start scanning: {sourcePath}");
             var bytes = await device.Scan(sourcePath);
-            
 
             //Save
             var currentPath = Directory.GetCurrentDirectory();
@@ -36,7 +35,7 @@ namespace ImageScannerEmulator.Strategies
             await memStream.WriteAsync(bytes, 0, bytes.Length);
             memStream.Position = 0;
 
-            using var image = await Image.LoadAsync(memStream, new PngDecoder());
+            using var image = await Image.LoadAsync(memStream);
             image.Mutate(x => x
                 .Grayscale());
 

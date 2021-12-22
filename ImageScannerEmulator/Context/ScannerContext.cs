@@ -9,8 +9,6 @@ namespace ImageScannerEmulator.Context
         protected IScanOutputStrategy OutputStrategy;
         protected FileSystemWatcher Watcher;
 
-        private string? _savePath;
-
         protected ScannerContext(IDevice device, IScanOutputStrategy outputStrategy)
         {
             Device = device ?? throw new ArgumentNullException(nameof(device));
