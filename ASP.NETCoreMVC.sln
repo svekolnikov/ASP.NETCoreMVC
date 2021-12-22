@@ -5,7 +5,13 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadWpf", "ThreadWpf\ThreadWpf.csproj", "{F1CC63E8-9864-4A94-B662-1DC1BCB9EAF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroPool", "MicroPool\MicroPool.csproj", "{F9B024F9-233B-4E14-956E-2F5CC4C0BB7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroPool", "MicroPool\MicroPool.csproj", "{F9B024F9-233B-4E14-956E-2F5CC4C0BB7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScannerEmulator", "Scanner\ScannerEmulator.csproj", "{4EE72B46-836C-4250-95A6-075EBA91DC8F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson5", "Lesson5\Lesson5.csproj", "{85D08554-B839-49C3-BB29-2CB480694FA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageScannerEmulator", "ImageScannerEmulator\ImageScannerEmulator.csproj", "{5030FE9C-1CCC-44A3-B1E1-D09AA330D2DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{F9B024F9-233B-4E14-956E-2F5CC4C0BB7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9B024F9-233B-4E14-956E-2F5CC4C0BB7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9B024F9-233B-4E14-956E-2F5CC4C0BB7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EE72B46-836C-4250-95A6-075EBA91DC8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EE72B46-836C-4250-95A6-075EBA91DC8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EE72B46-836C-4250-95A6-075EBA91DC8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EE72B46-836C-4250-95A6-075EBA91DC8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85D08554-B839-49C3-BB29-2CB480694FA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85D08554-B839-49C3-BB29-2CB480694FA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85D08554-B839-49C3-BB29-2CB480694FA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85D08554-B839-49C3-BB29-2CB480694FA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5030FE9C-1CCC-44A3-B1E1-D09AA330D2DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5030FE9C-1CCC-44A3-B1E1-D09AA330D2DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5030FE9C-1CCC-44A3-B1E1-D09AA330D2DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5030FE9C-1CCC-44A3-B1E1-D09AA330D2DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
