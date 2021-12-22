@@ -1,22 +1,19 @@
 ﻿using ImageScannerEmulator.Device;
 using ImageScannerEmulator.Logger;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
 
 namespace ImageScannerEmulator.Strategies
 {
-    public class GrayscaleOutput : IScanOutputStrategy
+    public class CropTwiceOutput : IScanOutputStrategy
     {
         protected readonly IScannerLogger _logger;
-        public GrayscaleOutput(IScannerLogger logger) => _logger = logger;
-
-        public string Name { get; set; } = "Grayscale strategy";
+        public CropTwiceOutput(IScannerLogger logger) => _logger = logger;
 
         public async Task ScanAndSave(IDevice device, string sourcePath, string destName)
         {
             if (string.IsNullOrWhiteSpace(destName)) throw new ArgumentNullException(nameof(destName));
-            
+
             //Scan
             _logger.WriteInfo($"Start scanning: {sourcePath}");
             var bytes = await device.Scan(sourcePath);
@@ -36,8 +33,8 @@ namespace ImageScannerEmulator.Strategies
             memStream.Position = 0;
 
             using var image = await Image.LoadAsync(memStream);
-            image.Mutate(x => x
-                .Grayscale());
+            image.Mutate(x => x.
+                Resize(image.Width / 2, image.Height / 2));
 
             await image.SaveAsync(destPath);
         }
