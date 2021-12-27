@@ -9,7 +9,7 @@ namespace ImageScannerEmulator.Device
             if (!File.Exists(path)) throw new FileNotFoundException();
 
             var fileInfo = new FileInfo(path);
-            while (IsFileLocked(fileInfo)){}    // wait release process
+            while (IsFileLocked(fileInfo)){}    // wait file 
 
             byte[] buffer;
             var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
