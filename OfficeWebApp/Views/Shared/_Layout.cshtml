@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "_LayoutRoot";
+}
+
+@await Html.PartialAsync("Partial/_Header")
+
+<div class="container">
+    <main role="main" pb-3>
+        @RenderBody()
+    </main>
+</div>
+
+@await Html.PartialAsync("Partial/_Footer")
+
+@section Styles
+{
+    @await RenderSectionAsync("Styles", false)
+}
+
+@section Scripts
+{
+    @await RenderSectionAsync("Scripts", false)
+}
